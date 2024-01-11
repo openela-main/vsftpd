@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 35%{?dist}
+Release: 36%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -97,7 +97,7 @@ Patch65: 0001-Fix-timestamp-handling-in-MDTM.patch
 Patch66: 0001-Remove-a-hint-about-the-ftp_home_dir-SELinux-boolean.patch
 Patch67: vsftpd-3.0.3-enable_wc_logs-replace_unprintable_with_hex.patch
 Patch68: vsftpd-3.0.3-option_to_disable_TLSv1_3.patch
-
+Patch69: vsftpd-3.0.3-add-option-for-tlsv1.3-ciphersuites.patch
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
 scratch.
@@ -165,6 +165,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Thu Apr 06 2023 Richard Lescak <rlescak@redhat.com> -3.0.3-36
+- add patch to provide option for TLSv1.3 ciphersuites
+- Resolves: rhbz#2069733
+
 * Fri Dec 03 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-35
 - add option to disable TLSv1.3
 - Resolves: rhbz#1638375
