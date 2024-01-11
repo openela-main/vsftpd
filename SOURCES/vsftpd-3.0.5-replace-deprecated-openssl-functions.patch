@@ -25,7 +25,7 @@ diff --git a/ssl.c b/ssl.c
      int verify_option = 0;
      SSL_library_init();
 -    p_ctx = SSL_CTX_new(SSLv23_server_method());
-+    p_ctx = SSL_CTX_new_ex(NULL, NULL, SSLv23_server_method());
++    p_ctx = SSL_CTX_new_ex(NULL, NULL, TLS_server_method());
      if (p_ctx == NULL)
      {
        die("SSL: could not allocate SSL context");

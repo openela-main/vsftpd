@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -98,8 +98,9 @@ Patch69: 0001-Remove-a-hint-about-the-ftp_home_dir-SELinux-boolean.patch
 Patch70: fix-str_open.patch
 Patch71: vsftpd-3.0.3-enable_wc_logs-replace_unprintable_with_hex.patch
 Patch72: vsftpd-3.0.5-use-old-tlsv-options.patch
-Patch73: vsftpd-3.0.5-repalce-old-network-addr-functions.patch
+Patch73: vsftpd-3.0.5-replace-old-network-addr-functions.patch
 Patch74: vsftpd-3.0.5-replace-deprecated-openssl-functions.patch
+Patch75: vsftpd-3.0.5-add-option-for-tlsv1.3-ciphersuites.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -110,14 +111,11 @@ scratch.
 cp %{SOURCE1} .
 
 %build
-# temporary ignore deprecated warnings to be able to build against OpenSSL 3.0
-# upstram tracking bug: rhbz#1962603
-%define ignore_deprecated -Wno-deprecated-declarations
 
 %ifarch s390x sparcv9 sparc64
-%make_build CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe -Wextra -Werror %ignore_deprecated" \
+%make_build CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe -Wextra -Werror" \
 %else
-%make_build CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror %ignore_deprecated" \
+%make_build CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror" \
 %endif
         LINK="-pie -lssl $RPM_LD_FLAGS" %{?_smp_mflags}
 
@@ -172,6 +170,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Thu Apr 27 2023 Richard Lescak <rlescak@redhat.com> - 3.0.5-5
+- add option for TLSv1.3 ciphersuites
+- Resolves: rhbz#2188296
+ 
 * Mon Feb 13 2023 Richard Lescak <rlescak@redhat.com> - 3.0.5-4
 - add patch to replace deprecated Openssl functions 
 - Resolves: rhbz#1981411
