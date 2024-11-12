@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -61,7 +61,6 @@ Patch29: 0029-Fix-segfault-in-config-file-parser.patch
 Patch30: 0030-Fix-logging-into-syslog-when-enabled-in-config.patch
 Patch31: 0031-Fix-question-mark-wildcard-withing-a-file-name.patch
 Patch32: 0032-Propagate-errors-from-nfs-with-quota-to-client.patch
-#Patch33: 0033-Introduce-TLSv1.1-and-TLSv1.2-options.patch
 Patch34: 0034-Turn-off-seccomp-sandbox-because-it-is-too-strict.patch
 Patch36: 0036-Redefine-VSFTP_COMMAND_FD-to-1.patch
 Patch37: 0037-Document-the-relationship-of-text_userdb_names-and-c.patch
@@ -69,8 +68,7 @@ Patch38: 0038-Document-allow_writeable_chroot-in-the-man-page.patch
 Patch39: 0039-Improve-documentation-of-ASCII-mode-in-the-man-page.patch
 Patch40: 0040-Use-system-wide-crypto-policy.patch
 Patch41: 0041-Document-the-new-default-for-ssl_ciphers-in-the-man-.patch
-#Patch42: 0042-When-handling-FEAT-command-check-ssl_tlsv1_1-and-ssl.patch
-#Patch43: 0043-Enable-only-TLSv1.2-by-default.patch
+Patch42: 0042-When-handling-FEAT-command-check-ssl_tlsv1_1-and-ssl.patch
 Patch44: 0044-Disable-anonymous_enable-in-default-config-file.patch
 Patch45: 0045-Expand-explanation-of-ascii_-options-behaviour-in-ma.patch
 Patch46: 0046-vsftpd.conf-Refer-to-the-man-page-regarding-the-asci.patch
@@ -170,6 +168,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Tue Aug 20 2024 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-6
+- Fix FEAT command to list AUTH TLS when TLSv1.3 is enabled
+- Resolves: RHEL-45022
+
 * Thu Apr 27 2023 Richard Lescak <rlescak@redhat.com> - 3.0.5-5
 - add option for TLSv1.3 ciphersuites
 - Resolves: rhbz#2188296
