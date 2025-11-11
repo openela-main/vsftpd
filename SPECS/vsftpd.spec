@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -49,8 +49,8 @@ Patch17: 0017-Fix-an-issue-with-timestamps-during-DST.patch
 Patch18: 0018-Change-the-default-log-file-in-configuration.patch
 Patch19: 0019-Introduce-reverse_lookup_enable-option.patch
 Patch20: 0020-Use-unsigned-int-for-uid-and-gid-representation.patch
-Patch21: 0021-Introduce-support-for-DHE-based-cipher-suites.patch
-Patch22: 0022-Introduce-support-for-EDDHE-based-cipher-suites.patch
+Patch21: 0021-Follow-crypto-policies-for-ssl-ciphers.patch
+Patch22: 0022-Add-options-for-TLS-ciphersuites-and-DH-params.patch
 Patch23: 0023-Add-documentation-for-isolate_-options.-Correct-defa.patch
 Patch24: 0024-Introduce-new-return-value-450.patch
 Patch25: 0025-Improve-local_max_rate-option.patch
@@ -66,8 +66,6 @@ Patch36: 0036-Redefine-VSFTP_COMMAND_FD-to-1.patch
 Patch37: 0037-Document-the-relationship-of-text_userdb_names-and-c.patch
 Patch38: 0038-Document-allow_writeable_chroot-in-the-man-page.patch
 Patch39: 0039-Improve-documentation-of-ASCII-mode-in-the-man-page.patch
-Patch40: 0040-Use-system-wide-crypto-policy.patch
-Patch41: 0041-Document-the-new-default-for-ssl_ciphers-in-the-man-.patch
 Patch42: 0042-When-handling-FEAT-command-check-ssl_tlsv1_1-and-ssl.patch
 Patch44: 0044-Disable-anonymous_enable-in-default-config-file.patch
 Patch45: 0045-Expand-explanation-of-ascii_-options-behaviour-in-ma.patch
@@ -97,7 +95,6 @@ Patch70: fix-str_open.patch
 Patch71: vsftpd-3.0.5-enable_wc_logs-replace_unprintable_with_hex.patch
 Patch72: vsftpd-3.0.5-replace-old-network-addr-functions.patch
 Patch73: vsftpd-3.0.5-replace-deprecated-openssl-functions.patch
-Patch74: vsftpd-3.0.5-add-option-for-tlsv1.3-ciphersuites.patch
 Patch75: vsftpd-3.0.5-use-old-tlsv-options.patch
 
 %description
@@ -168,6 +165,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Thu Jul 10 2025 Pavol Žáčik <pzacik@redhat.com> - 3.0.5-10
+- Fix cryptographic agility issues
+  Resolves: RHEL-99533
+
 * Tue Oct 29 2024 Troy Dawson <tdawson@redhat.com> - 3.0.5-9
 - Bump release for October 2024 mass rebuild:
   Resolves: RHEL-64018
