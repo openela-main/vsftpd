@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 36%{?dist}
+Release: 36%{?dist}.3
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -165,6 +165,18 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Dec 17 2025 Tomas Korbar <tkorbar@redhat.com> - 3.0.3-36.3
+- Rebuild to test with proper configuration
+- Related: RHEL-134160
+
+* Wed Dec 17 2025 Tomas Korbar <tkorbar@redhat.com> - 3.0.3-36.2
+- Rebuild to test with proper configuration
+- Related: RHEL-134160
+
+* Wed Dec 17 2025 Tomas Korbar <tkorbar@redhat.com> - 3.0.3-36.1
+- Fix CVE-2025-14242
+- Resolves: RHEL-134160
+
 * Thu Apr 06 2023 Richard Lescak <rlescak@redhat.com> -3.0.3-36
 - add patch to provide option for TLSv1.3 ciphersuites
 - Resolves: rhbz#2069733
