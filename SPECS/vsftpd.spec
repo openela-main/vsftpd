@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 10%{?dist}
+Release: 10%{?dist}.1
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -165,6 +165,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Tue Dec 16 2025 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-10.1
+- Fix CVE-2025-14242
+- Resolves: RHEL-134158
+
 * Thu Jul 10 2025 Pavol Žáčik <pzacik@redhat.com> - 3.0.5-10
 - Fix cryptographic agility issues
   Resolves: RHEL-99533
