@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 6%{?dist}
+Release: 6%{?dist}.2
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -168,6 +168,14 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Tue Dec 16 2025 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-6.2
+- Rebuild to test with proper configuration
+- Related: RHEL-134169
+
+* Tue Dec 16 2025 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-6.1
+- Fix CVE-2025-14242
+- Resolves: RHEL-134169
+
 * Tue Aug 20 2024 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-6
 - Fix FEAT command to list AUTH TLS when TLSv1.3 is enabled
 - Resolves: RHEL-45022

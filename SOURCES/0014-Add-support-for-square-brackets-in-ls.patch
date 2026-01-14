@@ -1,14 +1,11 @@
-From ba0520650ae7f9f63e48ba9fb3a94297aebe2d0c Mon Sep 17 00:00:00 2001
-From: Martin Sehnoutka <msehnout@redhat.com>
-Date: Wed, 7 Sep 2016 14:22:21 +0200
-Subject: [PATCH 14/59] Add support for square brackets in ls.
+commit de556b2643b5da622f501b435740c651b9f82554
+Author: Tomas Korbar <tkorbar@redhat.com>
+Date:   Mon Dec 15 02:00:00 2025 +0200
 
----
- ls.c | 222 +++++++++++++++++++++++++++++++++++++++++++++----------------------
- 1 file changed, 150 insertions(+), 72 deletions(-)
+    Add support for square brackets in ls.
 
 diff --git a/ls.c b/ls.c
-index 616b2d9..b840136 100644
+index 616b2d9..ab69af9 100644
 --- a/ls.c
 +++ b/ls.c
 @@ -246,7 +246,7 @@ vsf_filename_passes_filter(const struct mystr* p_filename_str,
@@ -191,7 +188,7 @@ index 616b2d9..b840136 100644
 -          if (vsf_filename_passes_filter(&name_remain_str, &new_filter_str,
 -                                         iters))
 +          unsigned int cur_pos;
-+          char stch, ench;
++          unsigned char stch, ench;
 +          const char *p_brace;
 +
 +          str_split_char(&filter_remain_str, &temp_str, ']');
@@ -216,7 +213,7 @@ index 616b2d9..b840136 100644
 +              cur_pos++;
 +            }
 +            // expand char[s]
-+            for (;stch <= ench && !str_isempty(&brace_list_str); stch++)
++            for (;stch <= ench && !str_isempty(&brace_list_str) && stch != 0; stch++)
 +            {
 +              str_empty(&new_filter_str);
 +              if (!matched)
@@ -272,6 +269,3 @@ index 616b2d9..b840136 100644
    }
    /* Any incoming string left means no match unless we ended on the correct
     * type of wildcard.
--- 
-2.14.4
-
