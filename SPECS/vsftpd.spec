@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 10%{?dist}.1
+Release: 12%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -18,6 +18,7 @@ Source7:  vsftpd.service
 Source8:  vsftpd@.service
 Source9:  vsftpd.target
 Source10: vsftpd-generator
+Source11: vsftpd-tmpfiles.conf
 
 BuildRequires: make
 BuildRequires: pam-devel
@@ -134,6 +135,7 @@ install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_unitdir}
 install -m 644 %{SOURCE8} $RPM_BUILD_ROOT%{_unitdir}
 install -m 644 %{SOURCE9} $RPM_BUILD_ROOT%{_unitdir}
 install -m 755 %{SOURCE10} $RPM_BUILD_ROOT%{_generatorsdir}
+install -Dpm 644 %{SOURCE11} $RPM_BUILD_ROOT%{_tmpfilesdir}/vsftpd.conf
                             
 mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 
@@ -163,11 +165,16 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_mandir}/man5/vsftpd.conf.*
 %{_mandir}/man8/vsftpd.*
 %{_var}/ftp
+%{_tmpfilesdir}/vsftpd.conf
 
 %changelog
-* Tue Dec 16 2025 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-10.1
+* Fri Jan 16 2026 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-12
 - Fix CVE-2025-14242
-- Resolves: RHEL-134158
+- Resolves: RHEL-134159
+
+* Wed Dec 17 2025 Fedor Vorobev <fvorobev@redhat.com> - 3.0.5-11
+- Add a tmpfiles.d config.
+  Resolves: RHEL-133067
 
 * Thu Jul 10 2025 Pavol Žáčik <pzacik@redhat.com> - 3.0.5-10
 - Fix cryptographic agility issues
