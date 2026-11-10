@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -168,6 +168,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_tmpfilesdir}/vsftpd.conf
 
 %changelog
+* Tue Aug 18 2026 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-13
+- Fix incorrect passive IP address when pasv_addr_resolve=YES
+- Resolves: RHEL-243204
+
 * Fri Jan 16 2026 Tomas Korbar <tkorbar@redhat.com> - 3.0.5-12
 - Fix CVE-2025-14242
 - Resolves: RHEL-134159
